@@ -38,7 +38,7 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="contact.html" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="#section2" class="nav-link" id="about">About</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -57,16 +57,6 @@
       </div>
     </div>
 
-		<section class="ftco-intro">
-			<div class="container">
-				<div class="row justify-content-start">
-					<div class="col-md-9">
-						<h1>We're <strong>Traveler</strong> &amp; <strong>Blogger</strong> from Paris, Italy Who Loves Documenting Adventures &amp; Discoveries Around the World</h1>
-					</div>
-				</div>
-			</div>
-		</section>
-
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
@@ -74,16 +64,145 @@
     				<div class="row">
     					<div class="col-md-12">
     						<div class="blog-entry ftco-animate">
-    							<a href="#" class="img" style="background-image: url(images/image_1.jpg);"></a>
+
     							<div class="text pt-2 mt-5">
-				          	<span class="big">South America</span>
-			              <h3 class="mb-4"><a href="#">Hawaii known as the Big Island</a></h3>
-			              <p class="mb-4">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+				          	<span class="big">Pattern Searching</span>
+			              <h3 class="mb-4"><a href="#">Rabin-Karp Algorithm</a></h3>
+			              <p class="mb-4">Rabin-Karp is another pattern searching algorithm to find the pattern in a more efficient way. It also checks the pattern by moving window one by one, but without checking all characters for all cases, it finds the hash value. When the hash value is matched, then only it tries to check each character. This procedure makes the algorithm more efficient.
+
+The time complexity is O(m+n), but for the worst case, it is O(mn).</p>
+<img src="images/stringmatch.gif" alt="img" width="700" height="300">
 			              <div class="meta-wrap d-md-flex align-items-center">
 			              </div>
 			            </div>
     						</div>
-    					</div>
+                <p>A completely different approach to substring search which uses hashing was discovered by Rabin and Karp [11, 18, 19, 20]. Hashing is a method
+where a function, called the hash function, is used to map data of arbitrary size to data of a fixed size. The hash function returns values which
+are sometimes named as hash values, hash codes, digests, or simply hashes.
+(Hash functions are often confused with fingerprints, checksums, check digits, error-correction etc.; and that is why this algorithm is also known as the
+”Rabin-Karp fingerprint algorithm”.)</p>
+<p>Different problems use, in general, different hashing methods (functions). For the string matching problem, a hash function is constructed for
+the pattern. The same hash function is used for finding a match for each
+possible text substring of length m. The searching process is exactly the
+same as if the pattern is stored in a hash table and then it performs a search
+for each substring of the text. The main advantage (which has an impact on
+the space complexity) is that there is no need to allocate the memory for the
+hash table.</p>
+<p>This process leads to a worse time complexity than the brute-force
+algorithm. This is due to computing the hash function which involves all
+characters and is more time-consuming since it only compares characters as
+in the naive algorithm. In spite of that, in the real world it has been shown that computing hash functions for m characters by Rabin-Karp’s algorithm
+can be done in constant time and leads to a linear time substring matching
+in practical situations. Hash functions are the reason why this algorithm
+is in the group of effective string searching algorithm and has practical and
+theoretical usage in many cases.</p>
+<p>A string of length m corresponds to an m-digit base-R number. For
+keys of this type, it is necessary to have a certain hash function which converts an m-digit base-R to an integer value from 0 to Q−1. Modular hashing
+is used in more complex cases, where this process takes the remainder of dividing the number with Q. Instead of the remainder in practice is mostly
+used a random prime number Q, which is chosen in that way so the number
+is as large as it is possible. In such cases, it is important to avoid overflow.</p>
+<p>We give a simple example to demonstrate algorithm’s working. In this
+example a small Q = 997 (a hash table size) is being used, which in real
+situations hardly ever happens and R = 10. The pattern P = 26535 is
+searched in the text T = 3141592653589793. The hash value for the pattern
+is 26535%997 = 613, which means that iterations will be performed in the
+text until there is found a substring with the same value (613) and has as
+many characters as the pattern. In the example the substring is found in the
+seventh iteration (the index is six) because the first six values returned are:
+508, 201, 715, 971, 442 and 929.</p>
+<br>
+<img src="images/rabinfig1.png" alt="img" width="500" height="200">
+<br>
+<br>
+<p>In the example, the number of the characters in the pattern is five and
+still there is no problem. Difficulties appear when the number of the characters is 100, 1000 etc. To handle such cases we often use the well-known
+Horner’s method. This method is often used to calculate values of polynomials.</p>
+<br>
+<img src="images/rabinfig2.png" alt="img" width="600" height="500">
+<br>
+<br>
+<p>In Rabin-Karp algorithm only a simple application of Horner’s method is
+used, in an elementary function which implements the hash function. There
+is only one ”for loop”, which runs over all characters of the pattern (m times)
+and computes the hash function by the formula given in the pseudocode below.</p>
+<br>
+<pre>HASH FUNCTION(key, m)
+for j = 0 to m
+h = (R * h + key[j]) % Q
+return h</pre>
+<br>
+<p>Because this algorithm uses some arithmetics, one more time the accent
+will be on the Horner’s rule. The finite alphabet Σ has ten elements, i.e. ten
+digits. Given a pattern P[1, ..., m], let p denote its corresponding decimal
+value. Similarly, for a given text T[1, ..., n], let ts denote the decimal value of
+the length-m substring T[s + 1, ..., s + m], for s = 0, 1, ..., n − m. Certainly,
+ts = p if and only if T[s + 1, ..., s + m] = P[1, ..., m]; thus s is a valid shift
+(and vise versa applies). If p can be somehow computed in time Θ(m) and
+all the ts (for s = 0, 1, . . . , m) values can be computed in time Θ(n − m + 1),
+then all valid shifts can be determined in time Θ(m) + Θ(n − m + 1) which is Θ(n).
+By using Horner’s rule, p can be computed in time Θ(m):
+p = P[m] + 10(P[m − 1] + 10(P[m − 2] + ... + 10(P[2] + P[1])...))
+Each of the other values t1, t2, ..., tn−m, can be computed in time Θ(n−
+m). Notice that ts+1 can be computed from ts in constant time, since:
+ts+1 = 10(ts − 10m−1T[s + 1]) + T[s + m + 1]</p>
+<br>
+<pre>For example, let m = 5, q = 13, and T = [3, 1, 4, 1, 5, 2]. Consequently,
+t0 = 31415. So,
+t1 = 10(31415 − 105−1 ∗ T[1]) + T[5 + 1] =
+= 10(31415 − 104 ∗ 3) + 2
+= 10(1415) + 2
+= 14152</pre>
+<br>
+<p>This example shows how Horner’s rule is used: subtracting 10m−1 ∗
+T[s + 1] removes the high-order digit from ts; multiplying the result by 10
+shifts the number left one position; and adding T[s + m + 1] brings in the
+appropriate low-order digit.</p>
+<p>The pseudocode for the RK algorithm accepts the text T, the searching
+pattern P, Q and d, where d is basically |Σ| and is presented in the code
+below. The function power(d,m-1) represents to d
+m−1 and mod is the usual
+modulo function.</p>
+<br>
+<pre>RABIN-KARP ALGORITHM(T,P,d,Q)
+n = length(T)
+m = length(P)
+h = power(d, m-1) * mod Q
+p = 0
+t0 = 0
+for i = 1 to m
+do p = (d * p + P[i]) * mod Q
+t0 = (d * t0 + T[i]) * mod Q
+for s = 0 to n - m
+do if p = tS
+then if P[1,..,m] = T[s+1,..,s+m]
+then print "Suitable pattern occurs at shift" s
+if s < n - m
+then tS+1 = (d(tS - T[s+1]*h) + T[s+m+1]) * mod Q</pre>
+<br>
+<p>The first for loop is used for preprocessing and takes Θ(m) time for the
+first process. The second for loop is used for matching and takes Θ((n−m+
+1)m) time in the worst case. If P = a
+m and T = a
+n
+, then the verifications
+take time Θ((n − m + 1)m), since each possible verification is a valid shift.</p>
+<p>In some applications, not all verifications are valid shifts. Here, the
+matching time of the Rabin-Karp algorithm is O((n-m+1) + cm) = O(n+m),
+where c is a constant and does not have an impact on the matching time of
+the algorithm. Since it is usually assumed that the length of the pattern is
+smaller or at most equal, but never larger that the length of the text i.e.
+m ≤ n, the matching time of the Rabin-Karp algorithm is O(n).</p>
+<br>
+<h5>Video Demonstration :</h5>
+<br>
+                <iframe width="660" height="355" src="https://www.youtube.com/embed/oxd_Z1osgCk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <br>
+                <br>
+                <h5>Complexity :</h5>
+                <p>Assume the text is length n and the length of the word is m. The best and average-case running time of Rabin-Karp is O(m+n) because the rolling hash step takes O(n) time and once the algorithm finds a potential match, it must verify each letter to make sure that the match is true and not a result of a hashing collision, and therefore must check each of the m letters in the word.</p>
+                <p>The worst-case running time of Rabin-Karp is O(nm). This would occur with an extremely awful hash function that resulted in a false positive at each step. Since whenever the algorithm thinks it found a match, it must verify each of the m letters in the word, if there is a collision at each step, m letters will be checked n times resulting in a running time of O(nm). This can be avoided with a good choice of hash function.</p>
+                <br>
+              </div>
 
     				</div>
     			</div><!-- END-->
@@ -91,9 +210,14 @@
 
 
             <div class="sidebar-box ftco-animate">
-              <h3>Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>
+              <h3>Input and Output :</h3>
+              <pre>Input:
+Main String: “ABAAABCDBBABCDDEBCABC”, Pattern “ABC”
+Output:
+Pattern found at position: 4
+Pattern found at position: 10
+Pattern found at position: 18</pre>
+              </div>
           </div><!-- END COL -->
     		</div>
     	</div>
@@ -104,13 +228,8 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Explorer</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
+              <h2 class="ftco-heading-2">About</h2>
+              <p>Developed to Illustrate and help understand Rabin-Karp Pattern Searching Algorithm with relevant examples.</p>
             </div>
           </div>
           <div class="col-md">
@@ -123,22 +242,19 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2">Presented by,</h2>
+              <h2 class="ftco-heading-2">Mrs. Rachana Sable</h5>
             	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-	              </ul>
 	            </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 text-center">
+          <div class="col-md-12 text-center" id="section2">
 
             <p>
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+  <p style="color: white;">www.rabinkarp.ml</p>
           </div>
         </div>
       </div>
@@ -167,6 +283,31 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("#about").on('click', function(event) {
 
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
   </body>
 </html>
